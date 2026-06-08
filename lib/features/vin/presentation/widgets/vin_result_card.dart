@@ -130,6 +130,51 @@ class VinResultCard extends StatelessWidget {
                   value: vehicle.plantCountry,
                   iconColor: Colors.green,
                 ),
+                const Divider(height: 16, indent: 44),
+                // Render any additional fields returned by the API that are not shown above
+                Builder(
+                  builder: (context) {
+                    final excludedKeys = {
+                      'Make',
+                      'Model',
+                      'Model Year',
+                      'Series',
+                      'Model Family',
+                      'Family',
+                      'Body Class',
+                      'Vehicle Type',
+                      'Plant Country',
+                    };
+
+                    final extras = vehicle.rawResults.entries
+                        .where(
+                          (e) =>
+                              !excludedKeys.contains(e.key) &&
+                              e.value != null &&
+                              e.value.toString().trim().isNotEmpty,
+                        )
+                        .toList();
+
+                    if (extras.isEmpty) return const SizedBox.shrink();
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: extras.map((e) {
+                        return Column(
+                          children: [
+                            InfoRow(
+                              icon: Icons.info_outline_rounded,
+                              label: e.key,
+                              value: e.value.toString(),
+                              iconColor: Colors.grey.shade600,
+                            ),
+                            const Divider(height: 16, indent: 44),
+                          ],
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
               ],
             ),
           ),

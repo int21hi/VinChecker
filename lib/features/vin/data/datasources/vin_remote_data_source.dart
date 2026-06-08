@@ -43,27 +43,33 @@ class VinRemoteDataSourceImpl implements VinRemoteDataSource {
       final make = resultMap['Make'];
       final model = resultMap['Model'];
       final modelYear = resultMap['Model Year'];
-      final family = resultMap['Series'] ?? resultMap['Model Family'] ?? resultMap['Family'] ?? '';
+      final family =
+          resultMap['Series'] ??
+          resultMap['Model Family'] ??
+          resultMap['Family'] ??
+          '';
       final bodyClass = resultMap['Body Class'];
       final vehicleType = resultMap['Vehicle Type'];
       final plantCountry = resultMap['Plant Country'];
-      
+
       final errorCode = resultMap['Error Code'];
 
       // If make, model and year are all null/empty or error code indicates invalid characters/incomplete
       // Note: Error code "0" means clean, and check digit mismatch (error code 1) is acceptable if we still get details.
-      final isInvalidCode = errorCode != null && 
-          errorCode != '0' && 
-          errorCode != '1' && 
-          errorCode != '2' && 
-          errorCode != '3' && 
-          errorCode != '4' && 
+      final isInvalidCode =
+          errorCode != null &&
+          errorCode != '0' &&
+          errorCode != '1' &&
+          errorCode != '2' &&
+          errorCode != '3' &&
+          errorCode != '4' &&
           errorCode != '10' && // Off-road warning (still decodes details)
-          errorCode != '12';   // Model year warning (still decodes details)
-          
-      final hasNoDetails = (make == null || make.trim().isEmpty) && 
-                           (model == null || model.trim().isEmpty) && 
-                           (modelYear == null || modelYear.trim().isEmpty);
+          errorCode != '12'; // Model year warning (still decodes details)
+
+      final hasNoDetails =
+          (make == null || make.trim().isEmpty) &&
+          (model == null || model.trim().isEmpty) &&
+          (modelYear == null || modelYear.trim().isEmpty);
 
       if (isInvalidCode || hasNoDetails) {
         throw const InvalidVinFailure('Invalid VIN or vehicle not found.');
@@ -78,6 +84,7 @@ class VinRemoteDataSourceImpl implements VinRemoteDataSource {
         bodyClass: bodyClass ?? 'Unknown',
         vehicleType: vehicleType ?? 'Unknown',
         plantCountry: plantCountry ?? 'Unknown',
+        rawResults: resultMap,
         scannedAt: DateTime.now(),
       );
     } on DioException catch (e) {

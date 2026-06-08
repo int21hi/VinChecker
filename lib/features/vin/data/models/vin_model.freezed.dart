@@ -29,6 +29,7 @@ mixin _$VinModel {
   String get bodyClass => throw _privateConstructorUsedError;
   String get vehicleType => throw _privateConstructorUsedError;
   String get plantCountry => throw _privateConstructorUsedError;
+  Map<String, dynamic> get rawResults => throw _privateConstructorUsedError;
   DateTime get scannedAt => throw _privateConstructorUsedError;
 
   /// Serializes this VinModel to a JSON map.
@@ -55,6 +56,7 @@ abstract class $VinModelCopyWith<$Res> {
     String bodyClass,
     String vehicleType,
     String plantCountry,
+    Map<String, dynamic> rawResults,
     DateTime scannedAt,
   });
 }
@@ -83,6 +85,7 @@ class _$VinModelCopyWithImpl<$Res, $Val extends VinModel>
     Object? vehicleType = null,
     Object? plantCountry = null,
     Object? scannedAt = null,
+    Object? rawResults = null,
   }) {
     return _then(
       _value.copyWith(
@@ -122,6 +125,10 @@ class _$VinModelCopyWithImpl<$Res, $Val extends VinModel>
                 ? _value.scannedAt
                 : scannedAt // ignore: cast_nullable_to_non_nullable
                       as DateTime,
+            rawResults: null == rawResults
+                ? _value.rawResults
+                : rawResults // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>,
           )
           as $Val,
     );
@@ -146,6 +153,7 @@ abstract class _$$VinModelImplCopyWith<$Res>
     String bodyClass,
     String vehicleType,
     String plantCountry,
+    Map<String, dynamic> rawResults,
     DateTime scannedAt,
   });
 }
@@ -172,6 +180,7 @@ class __$$VinModelImplCopyWithImpl<$Res>
     Object? bodyClass = null,
     Object? vehicleType = null,
     Object? plantCountry = null,
+    Object? rawResults = null,
     Object? scannedAt = null,
   }) {
     return _then(
@@ -212,6 +221,10 @@ class __$$VinModelImplCopyWithImpl<$Res>
             ? _value.scannedAt
             : scannedAt // ignore: cast_nullable_to_non_nullable
                   as DateTime,
+        rawResults: null == rawResults
+            ? _value.rawResults
+            : rawResults // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>,
       ),
     );
   }
@@ -229,6 +242,7 @@ class _$VinModelImpl extends _VinModel {
     required this.bodyClass,
     required this.vehicleType,
     required this.plantCountry,
+    required this.rawResults,
     required this.scannedAt,
   }) : super._();
 
@@ -251,6 +265,8 @@ class _$VinModelImpl extends _VinModel {
   final String vehicleType;
   @override
   final String plantCountry;
+  @override
+  final Map<String, dynamic> rawResults;
   @override
   final DateTime scannedAt;
 
@@ -283,6 +299,7 @@ abstract class _VinModel extends VinModel {
     required final String bodyClass,
     required final String vehicleType,
     required final String plantCountry,
+    required Map<String, dynamic> rawResults,
     required final DateTime scannedAt,
   }) = _$VinModelImpl;
   const _VinModel._() : super._();

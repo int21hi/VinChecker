@@ -7,6 +7,7 @@ class VinEntity {
   final String bodyClass;
   final String vehicleType;
   final String plantCountry;
+  final Map<String, dynamic> rawResults;
   final DateTime scannedAt;
 
   const VinEntity({
@@ -18,6 +19,7 @@ class VinEntity {
     required this.bodyClass,
     required this.vehicleType,
     required this.plantCountry,
+    required this.rawResults,
     required this.scannedAt,
   });
 
@@ -34,6 +36,7 @@ class VinEntity {
           bodyClass == other.bodyClass &&
           vehicleType == other.vehicleType &&
           plantCountry == other.plantCountry &&
+          rawResults == other.rawResults &&
           scannedAt == other.scannedAt;
 
   @override
@@ -46,5 +49,6 @@ class VinEntity {
       bodyClass.hashCode ^
       vehicleType.hashCode ^
       plantCountry.hashCode ^
+      rawResults.hashCode ^
       scannedAt.hashCode;
 }

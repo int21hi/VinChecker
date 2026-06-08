@@ -6,6 +6,7 @@ import '../blocs/search/vin_search_cubit.dart';
 import '../blocs/search/vin_search_state.dart';
 import '../widgets/error_display.dart';
 import '../widgets/vin_result_card.dart';
+import 'detail_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -32,7 +33,7 @@ class _ScanScreenState extends State<ScanScreen> {
     if (cleanValue.length != 17) {
       return 'VIN code must have exactly 17 characters.';
     }
-    
+
     // Check for forbidden characters I, O, Q
     if (RegExp(r'[IOQ]').hasMatch(cleanValue)) {
       return 'VIN code cannot contain letters I, O, or Q.';
@@ -61,21 +62,19 @@ class _ScanScreenState extends State<ScanScreen> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('VIN Code Verification'),
-      ),
+      appBar: AppBar(title: const Text('VIN Code Verification')),
       body: BlocListener<VinSearchCubit, VinSearchState>(
         listener: (context, state) {
           state.maybeWhen(
             success: (vehicle) {
               // Automatically reload history when a search succeeds
               context.read<VinHistoryCubit>().loadHistory();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Vehicle ${vehicle.make} has been saved to history.'),
-                  backgroundColor: Colors.green,
-                  behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 2),
+
+              // Navigate to a dedicated detail screen to show full results
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(vehicle: vehicle),
                 ),
               );
             },
@@ -102,7 +101,9 @@ class _ScanScreenState extends State<ScanScreen> {
               // Intro header card
               Card(
                 elevation: 0,
-                color: theme.colorScheme.primary.withOpacity(isDark ? 0.1 : 0.05),
+                color: theme.colorScheme.primary.withOpacity(
+                  isDark ? 0.1 : 0.05,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                   side: BorderSide(
@@ -124,7 +125,9 @@ class _ScanScreenState extends State<ScanScreen> {
                         child: Text(
                           'VIN (Vehicle Identification Number) contains 17 characters. It does not include the letters I, O, and Q.',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
+                            color: isDark
+                                ? const Color(0xFF94A3B8)
+                                : const Color(0xFF475569),
                             height: 1.4,
                           ),
                         ),
@@ -206,7 +209,9 @@ class _ScanScreenState extends State<ScanScreen> {
                             Text(
                               'Ready for Decoding',
                               style: theme.textTheme.titleMedium?.copyWith(
-                                color: isDark ? const Color(0xFF64748B) : const Color(0xFF94A3B8),
+                                color: isDark
+                                    ? const Color(0xFF64748B)
+                                    : const Color(0xFF94A3B8),
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -214,7 +219,9 @@ class _ScanScreenState extends State<ScanScreen> {
                             Text(
                               'Enter the code and click the verify button.',
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                color: isDark ? const Color(0xFF475569) : const Color(0xFF64748B),
+                                color: isDark
+                                    ? const Color(0xFF475569)
+                                    : const Color(0xFF64748B),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -234,9 +241,9 @@ class _ScanScreenState extends State<ScanScreen> {
                         ),
                       ),
                     ),
-                    success: (vehicle) => VinResultCard(vehicle: vehicle),
+                    success: (vehicle) => const SizedBox.shrink(),
                     error: (message) {
-                      // Don't show network error twice if it's already shown as a snackbar, 
+                      // Don't show network error twice if it's already shown as a snackbar,
                       // but let's show a user friendly inline message.
                       return ErrorDisplay(errorMessage: message);
                     },
@@ -250,4 +257,3 @@ class _ScanScreenState extends State<ScanScreen> {
     );
   }
 }
-

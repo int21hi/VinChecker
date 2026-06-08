@@ -15,12 +15,14 @@ class VinModel with _$VinModel implements VinEntity {
     required String bodyClass,
     required String vehicleType,
     required String plantCountry,
+    required Map<String, dynamic> rawResults,
     required DateTime scannedAt,
   }) = _VinModel;
 
   const VinModel._();
 
-  factory VinModel.fromJson(Map<String, dynamic> json) => _$VinModelFromJson(json);
+  factory VinModel.fromJson(Map<String, dynamic> json) =>
+      _$VinModelFromJson(json);
 
   factory VinModel.fromEntity(VinEntity entity) {
     return VinModel(
@@ -32,6 +34,7 @@ class VinModel with _$VinModel implements VinEntity {
       bodyClass: entity.bodyClass,
       vehicleType: entity.vehicleType,
       plantCountry: entity.plantCountry,
+      rawResults: entity.rawResults,
       scannedAt: entity.scannedAt,
     );
   }
