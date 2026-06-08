@@ -73,9 +73,9 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon-vin-checker-v2.png"
-  adaptive_icon_background: "assets/icon-vin-checker-v2-adaptive.png"
-  adaptive_icon_foreground: "assets/icon-vin-checker-v2-adaptive.png"
+  image_path: "assets/icon/icon-vin-checker-v2.png"
+  adaptive_icon_background: "assets/icon/icon-vin-checker-v2-adaptive.png"
+  adaptive_icon_foreground: "assets/icon/icon-vin-checker-v2-adaptive.png"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
