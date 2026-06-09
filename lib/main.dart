@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/network/network_info.dart';
+import 'core/utils/admob_service.dart';
 import 'core/theme/app_theme.dart';
 import 'features/vin/data/datasources/vin_local_data_source.dart';
 import 'features/vin/data/datasources/vin_remote_data_source.dart';
@@ -43,6 +44,9 @@ void main() async {
   final DecodeVinUseCase decodeVinUseCase = DecodeVinUseCase(repository);
   final GetVinHistoryUseCase getVinHistoryUseCase = GetVinHistoryUseCase(repository);
   final DeleteVinHistoryUseCase deleteVinHistoryUseCase = DeleteVinHistoryUseCase(repository);
+
+  // Initialize AdMob
+  await AdMobService.initialize();
 
   runApp(MyApp(
     decodeVinUseCase: decodeVinUseCase,

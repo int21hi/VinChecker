@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'history_screen.dart';
 import 'scan_screen.dart';
+import '../../../../core/widgets/ad_banner.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -24,23 +25,33 @@ class _MainScreenState extends State<MainScreen> {
         index: _currentIndex,
         children: _screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner_rounded),
-            activeIcon: Icon(Icons.qr_code_scanner_rounded),
-            label: 'VIN Scan',
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Banner ad placed above the navigation bar
+          SafeArea(
+            top: false,
+            child: Center(child: AdBanner()),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_rounded),
-            activeIcon: Icon(Icons.history_rounded),
-            label: 'History',
+          BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.qr_code_scanner_rounded),
+                activeIcon: Icon(Icons.qr_code_scanner_rounded),
+                label: 'VIN Scan',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.history_rounded),
+                activeIcon: Icon(Icons.history_rounded),
+                label: 'History',
+              ),
+            ],
           ),
         ],
       ),

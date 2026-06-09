@@ -123,7 +123,7 @@ class _ScanScreenState extends State<ScanScreen> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          'VIN (Vehicle Identification Number) contains 17 characters. It does not include the letters I, O, and Q.',
+                          'VIN (Vehicle Identification Number) contains 17 characters and does not include the letters I, O, and Q. This service is optimized for VIN codes mostly from the USA and Canada.',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: isDark
                                 ? const Color(0xFF94A3B8)
