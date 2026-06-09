@@ -12,7 +12,7 @@ class PdfExportService {
       'dd MMMM yyyy, HH:mm',
     ).format(vehicle.scannedAt);
 
-    // Prepare additional fields from rawResults, excluding main ones
+    // Prepare additional fields from rawResults, excluding main ones and internal error fields
     final excludedKeys = {
       'Make',
       'Model',
@@ -23,6 +23,8 @@ class PdfExportService {
       'Body Class',
       'Vehicle Type',
       'Plant Country',
+      'Error Code',
+      'Error Text',
     };
 
     final additionalFields = vehicle.rawResults.entries

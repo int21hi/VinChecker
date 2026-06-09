@@ -144,6 +144,8 @@ class VinResultCard extends StatelessWidget {
                       'Body Class',
                       'Vehicle Type',
                       'Plant Country',
+                      'Error Code',
+                      'Error Text',
                     };
 
                     final extras = vehicle.rawResults.entries
