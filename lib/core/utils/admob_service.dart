@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -57,21 +58,36 @@ class AdMobService {
     );
   }
 
-  static void showInterstitial() {
+  static Future<void> showInterstitial({void Function()? onAdDismissed}) async {
     final ad = _interstitialAd;
-    if (ad == null) return;
+    if (ad == null) {
+      onAdDismissed?.call();
+      return;
+    }
+
+    final completer = Completer<void>();
+
     ad.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
-        _interstitialAd?.dispose();
+        ad.dispose();
         _interstitialAd = null;
         loadInterstitial();
+        onAdDismissed?.call();
+        if (!completer.isCompleted) {
+          completer.complete();
+        }
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        _interstitialAd?.dispose();
+        ad.dispose();
         _interstitialAd = null;
+        if (!completer.isCompleted) {
+          completer.complete();
+        }
       },
     );
+
     ad.show();
+    return completer.future;
   }
 
   // Rewarded

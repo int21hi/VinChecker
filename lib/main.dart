@@ -47,6 +47,7 @@ void main() async {
 
   // Initialize AdMob
   await AdMobService.initialize();
+  await AdMobService.loadInterstitial();
 
   runApp(MyApp(
     decodeVinUseCase: decodeVinUseCase,

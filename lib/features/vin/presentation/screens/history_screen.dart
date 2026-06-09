@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/utils/admob_service.dart';
 import '../blocs/history/vin_history_cubit.dart';
 import '../blocs/history/vin_history_state.dart';
 import 'detail_screen.dart';
@@ -164,12 +165,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               size: 16,
                               color: theme.colorScheme.primary.withOpacity(0.5),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DetailScreen(vehicle: vehicle),
-                                ),
+                            onTap: () async {
+                              await AdMobService.showInterstitial(
+                                onAdDismissed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailScreen(vehicle: vehicle),
+                                    ),
+                                  );
+                                },
                               );
                             },
                           ),
