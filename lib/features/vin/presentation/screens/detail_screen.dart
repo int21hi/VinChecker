@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/vin_entity.dart';
 import '../widgets/vin_result_card.dart';
+import '../../../../core/utils/admob_service.dart';
 import '../../../../core/utils/pdf_export_service.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -100,7 +101,45 @@ class DetailScreen extends StatelessWidget {
                 icon: const Icon(Icons.file_download_rounded),
                 label: const Text('Export to PDF'),
                 onPressed: () async {
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  final messenger = ScaffoldMessenger.of(context);
+
+                  final confirm = await showDialog<bool>(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Watch Ad to Export'),
+                        content: const Text(
+                          'This feature requires to watch an ad.',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
+                  if (confirm != true || !context.mounted) return;
+
+                  final rewarded = await AdMobService.showRewarded();
+                  if (!context.mounted) return;
+                  if (!rewarded) {
+                    messenger.showSnackBar(
+                      const SnackBar(
+                        content: Text('Rewarded ad was not completed. PDF export canceled.'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                    return;
+                  }
+
+                  messenger.showSnackBar(
                     const SnackBar(
                       content: Text('Generating PDF...'),
                       duration: Duration(seconds: 2),
@@ -109,8 +148,10 @@ class DetailScreen extends StatelessWidget {
                   );
                   try {
                     await PdfExportService.exportVehicleDetailsToPdf(vehicle);
+                    if (!context.mounted) return;
                   } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
+                    if (!context.mounted) return;
+                    messenger.showSnackBar(
                       SnackBar(
                         content: Text('Error generating PDF: $e'),
                         backgroundColor: Colors.red,

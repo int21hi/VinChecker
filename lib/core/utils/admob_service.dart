@@ -106,25 +106,38 @@ class AdMobService {
     );
   }
 
-  static void showRewarded(Function(RewardItem) onRewarded) {
+  static Future<bool> showRewarded() async {
     final ad = _rewardedAd;
-    if (ad == null) return;
+    if (ad == null) return false;
+
+    final completer = Completer<bool>();
+    var granted = false;
+
     ad.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
-        _rewardedAd?.dispose();
+        ad.dispose();
         _rewardedAd = null;
         loadRewarded();
+        if (!completer.isCompleted) {
+          completer.complete(granted);
+        }
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        _rewardedAd?.dispose();
+        ad.dispose();
         _rewardedAd = null;
+        if (!completer.isCompleted) {
+          completer.complete(false);
+        }
       },
     );
+
     ad.show(
       onUserEarnedReward: (ad, reward) {
-        onRewarded(reward);
+        granted = true;
       },
     );
+
+    return completer.future;
   }
 
   // Helpers for Banner creation
