@@ -13,26 +13,17 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = const [
-    ScanScreen(),
-    HistoryScreen(),
-  ];
+  final List<Widget> _screens = const [ScanScreen(), HistoryScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Banner ad placed above the navigation bar
-          SafeArea(
-            top: false,
-            child: Center(child: AdBanner()),
-          ),
+          SafeArea(top: false, child: Center(child: AdBanner())),
           BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (index) {
