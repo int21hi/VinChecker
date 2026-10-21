@@ -24,11 +24,11 @@ Get the official **VIN Checker** application for your device:
 
 <p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.vinchecker.vin.decoder" target="_blank">
-    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="220" alt="Get it on Google Play" />
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="220" height="80" alt="Get it on Google Play" />
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://apps.apple.com/us/app/vin-checker/id6779218213" target="_blank">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" width="190" alt="Download on the App Store" />
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" width="190" height="80" alt="Download on the App Store" />
   </a>
 </p>
 
