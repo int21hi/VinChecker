@@ -26,7 +26,7 @@ class AppTheme {
         primary: primaryColor,
         secondary: secondaryColor,
         surface: lightSurface,
-        background: lightBackground,
+        // background: lightBackground,
         onSurface: lightTextPrimary,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
@@ -36,7 +36,7 @@ class AppTheme {
       cardTheme: CardThemeData(
         color: lightSurface,
         elevation: 2,
-        shadowColor: Colors.black.withOpacity(0.05),
+        shadowColor: Colors.black.withValues(alpha: 0.05),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         clipBehavior: Clip.antiAlias,
       ),
@@ -127,7 +127,7 @@ class AppTheme {
         primary: primaryColor,
         secondary: secondaryColor,
         surface: darkSurface,
-        background: darkBackground,
+        // background: darkBackground,
         onSurface: darkTextPrimary,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
@@ -139,7 +139,7 @@ class AppTheme {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
-          side: BorderSide(color: Colors.white.withOpacity(0.08)),
+          side: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
         ),
         clipBehavior: Clip.antiAlias,
       ),
@@ -152,11 +152,11 @@ class AppTheme {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.10)),
+          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.10)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.10)),
+          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.10)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
